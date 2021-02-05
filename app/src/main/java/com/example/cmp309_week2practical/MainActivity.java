@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
     float[] hsv = new float[3];
 
+    //Object Instantiation
     ConstraintLayout layoutRef; //layoutRef is an instance of ConstraintLayout object/class
     Button buttonMiddle; //Instance of Button object/class
     MotionEvent motionEvent; //Instance of MotionEvent object/class
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         hsv[1] = 0.0f; // Saturation
         hsv[2] = 1.0f; // Value
 
+        //onTouchListener Components
         buttonMiddle = findViewById(R.id.buttonMiddle); //Locate UI element
         buttonMiddle.setOnTouchListener(this);  //Create the onTouchListener
 
@@ -104,5 +107,19 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) { //KeyCode determined what key was pressed
+        if (event.getAction() == KeyEvent.ACTION_DOWN){ //Get action from event
+            if(keyCode == KeyEvent.KEYCODE_VOLUME_UP && hsv[2] < 1.0f){ //If key pressed is volume up...
+                hsv[2] += 0.1f; //Lower brightness; hsv[2] is the brightness portion of hsv
+                layoutRef.setBackgroundColor(Color.HSVToColor(hsv));
+            } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN && hsv[2] > 0.0f){ //If key pressed is volume down...
+                hsv[2] -= 0.1f;
+                layoutRef.setBackgroundColor(Color.HSVToColor(hsv));
+            }
+        }
+        return true;
     }
 }
