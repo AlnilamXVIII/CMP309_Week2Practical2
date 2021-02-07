@@ -15,10 +15,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     float[] hsv = new float[3];
 
     //Object Instantiation
-    ConstraintLayout layoutRef; //layoutRef is an instance of ConstraintLayout object/class
-    Button buttonMiddle; //Instance of Button object/class
-    MotionEvent motionEvent; //Instance of MotionEvent object/class
-    MotionEvent event; //Instance of MotionEvent object/class
+    ConstraintLayout layoutRef;     //layoutRef is an instance of ConstraintLayout object/class
+    Button buttonMiddle;            //Instance of Button object/class
+    MotionEvent motionEvent;        //Instance of MotionEvent object/class
+    MotionEvent event;              //Instance of MotionEvent object/class
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +31,14 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         
         hsv[0] = 0.0f; // Hue
         hsv[1] = 0.0f; // Saturation
-        hsv[2] = 1.0f; // Value
+        hsv[2] = 1.0f; // Brightness Value
 
         //onTouchListener Components
-        buttonMiddle = findViewById(R.id.buttonMiddle); //Locate UI element
-        buttonMiddle.setOnTouchListener(this);  //Create the onTouchListener
+        buttonMiddle = findViewById(R.id.buttonMiddle);             //Locate UI element
+        buttonMiddle.setOnTouchListener(this);                      //Create the onTouchListener
 
-        final Button buttonLeft = findViewById(R.id.buttonLeft); //Locate UI element
-        buttonLeft.setOnClickListener(new View.OnClickListener() { //Create the onClickListener
+        final Button buttonLeft = findViewById(R.id.buttonLeft);    //Locate UI element
+        buttonLeft.setOnClickListener(new View.OnClickListener() {  //Create the onClickListener
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Left Button Clicked", Toast.LENGTH_SHORT).show();
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             }
         });
 
-        final Button buttonRight = findViewById(R.id.buttonRight); //Locate UI element
+        final Button buttonRight = findViewById(R.id.buttonRight);  //Locate UI element
         buttonRight.setOnClickListener(new View.OnClickListener() { //Create the onClickListener
             @Override
             public void onClick(View v) {
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     public void changeBackgroundColour(MotionEvent event) {
         float eventX = event.getX();
         float eventY = event.getY();
-        float height = layoutRef.getHeight();   // make sure the ref is declared and initialised (this is a reference to your root layout)
+        float height = layoutRef.getHeight(); // make sure the ref is declared and initialised (this is a reference to your root layout)
         float width = layoutRef.getWidth();
         hsv[0] = eventY / height * 360; // (0 to 360)
         hsv[1] = eventX / width + 0.1f; // (0.1 to 1)
@@ -110,10 +110,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) { //KeyCode determined what key was pressed
-        if (event.getAction() == KeyEvent.ACTION_DOWN){ //Get action from event
-            if(keyCode == KeyEvent.KEYCODE_VOLUME_UP && hsv[2] < 1.0f){ //If key pressed is volume up...
-                hsv[2] += 0.1f; //Lower brightness; hsv[2] is the brightness portion of hsv
+    public boolean onKeyDown(int keyCode, KeyEvent event) {                 //KeyCode determined what key was pressed
+        if (event.getAction() == KeyEvent.ACTION_DOWN){                     //Get action from event
+            if(keyCode == KeyEvent.KEYCODE_VOLUME_UP && hsv[2] < 1.0f){     //If key pressed is volume up...
+                hsv[2] += 0.1f;                                             //Lower brightness; hsv[2] is the brightness portion of hsv
                 layoutRef.setBackgroundColor(Color.HSVToColor(hsv));
             } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN && hsv[2] > 0.0f){ //If key pressed is volume down...
                 hsv[2] -= 0.1f;
